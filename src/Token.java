@@ -80,7 +80,7 @@ public class Token implements Comparable<Token>{
      */
     public boolean isToken(char c){
         boolean isToken = false;        
-        char[] posibleTokens = new char[] {'+','-','*','/','^'};
+        char[] posibleTokens = new char[] {'+','-','*','/','^','(',')'};
         
 
         for (char d : posibleTokens) {
