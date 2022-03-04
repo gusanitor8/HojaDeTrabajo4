@@ -44,7 +44,7 @@ public class Token implements Comparable<Token>{
      * @param token caracter que define el token
      */
     private void setPriority(char token){
-        boolean idk; 
+        
         if(contains(pri1,token)){
             priority = 1;
         }else if(contains(pri2,token)){
