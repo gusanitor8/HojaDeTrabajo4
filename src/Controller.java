@@ -1,7 +1,9 @@
 
 public class Controller {
 //-------------------------------------GUS-------------------------------------	
-
+	public void run() {
+		//TODO agregar metodos del controlador
+	}
 	
 //-------------------------------------DIEGUIN-------------------------------------
 	
