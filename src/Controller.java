@@ -3,7 +3,7 @@ public class Controller {
 //-------------------------------------GUS-------------------------------------
 	Vista vista = new Vista();
 	String infix; 
-	String postfix;
+	String postfix = "";
 	StackVector<Token> vector = new StackVector<Token>();
 	
 	public void run() {
@@ -28,6 +28,21 @@ public class Controller {
 	
 	public void toPostFixVector(String infix) {
 		for(int i = 0; i< infix.length(); i++) {
+			char ch = infix.charAt(i);
+			
+			try {
+				Token token = new Token(ch);
+				vector.push(token);
+				postfix += ' ';
+				
+			}catch(NotATokenException e) {
+				if ((ch == ')') ||(ch == '(')) {
+					//TODO si los caracteres son parentesis
+				}else {
+					postfix += ch;
+					
+				}
+			}
 			
 		}
 	}

@@ -4,18 +4,19 @@ public class Token implements Comparable<Token>{
     char[] pri3 = new char[]{'^'};
     char[] pri2 = new char[]{'*','/'};
     char[] pri1 = new char[]{'+','-'};
+    char[] priNor = new char[]{'(',')'};
 
     /**
      * Metodo constructor 
      * @param ch caracter operador
      * @throws Exception en caso de que se le pase un caracter que no sea un operador este tira una excepcion
      */
-    public Token(char ch) throws Exception{
+    public Token(char ch) throws NotATokenException{
         if(isToken(ch)){
             token = ch;
             setPriority(token);
         }else{
-            throw new Exception();            
+            throw new NotATokenException("No es un token");            
         }
 
     }
@@ -51,6 +52,8 @@ public class Token implements Comparable<Token>{
             priority = 2;
         }else if(contains(pri3,token)){
             priority = 3;
+        }else if(contains(pri3,token)){
+        	priority = 0;
         }
     }
 
@@ -98,7 +101,12 @@ public class Token implements Comparable<Token>{
             number = 0;
         }else if(o.getPriority() < this.getPriority()){
             number = 1;
+        }else if(o.getPriority() == 0) { //Si es parentesis
+        	number = 0;
+        }else if(this.getPriority() == 0) { //Si es parentesis
+        	number = 0;
         }
+        
         return number;
     }
 }
