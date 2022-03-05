@@ -10,13 +10,13 @@ public class Controller {
 	StackSingleList<Token> list = new StackSingleList<Token>(); 
 	
 	public void run() {
-		switch(vista.mainMenu()) {
+		switch(2) {
 		case 1:
 			toPostFixNodes(vista.infixInput());
 			System.out.println(postfix);
 			break;
 		case 2:
-			toPostFixSingleList(vista.infixInput());
+			toPostFixSingleList("(2+2)*4");
 			System.out.println(postfix);
 			break;
 		case 3:
@@ -81,7 +81,7 @@ public class Controller {
 	
 	
 	public void emptyStack(StackVector<Token> vector) {
-		if(vector.isEmpty() == false) {
+		while(vector.isEmpty() == false) {
 			postfix += vector.pull().getToken();
 		}
 	}
@@ -108,7 +108,7 @@ public class Controller {
 						}
 					}else {
 						//Si el que esta antes en el stack es de mayor precedencia
-						greaterPrecedenceSingle(list, token);
+						
 					}
 				}
 				
@@ -123,18 +123,21 @@ public class Controller {
 	
 	public void greaterPrecedenceSingle(StackSingleList<Token> list, Token token) {
 		//list.pull();
-		while((list.peek().getToken() != '(') || (token.compareTo(list.peek()) >= 0)) {
-			if (list.peek().getToken() != '(') {
-				postfix += list.pull().getToken();
-			}else {
-				list.pull();
+		if(list.isEmpty() == true) {
+			while((list.peek().getToken() != '(') || (token.compareTo(list.peek()) >= 0)) {
+				if (list.peek().getToken() != '(') {
+					postfix += list.pull().getToken();
+				}else {
+					list.pull();
+				}
 			}
 		}
+		
 	}
 	
 	
 	public void emptyStackSingle(StackSingleList<Token> list) {
-		if(list.isEmpty() == false) {
+		while(list.isEmpty() == false) {
 			postfix += list.pull().getToken();
 		}
 	}
