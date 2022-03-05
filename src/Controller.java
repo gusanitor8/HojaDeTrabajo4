@@ -10,13 +10,13 @@ public class Controller {
 	StackSingleList<Token> list = new StackSingleList<Token>(); 
 	
 	public void run() {
-		switch(2) {
+		switch(vista.mainMenu()) {
 		case 1:
 			toPostFixNodes(vista.infixInput());
 			System.out.println(postfix);
 			break;
 		case 2:
-			toPostFixSingleList("(2+2)*4");
+			toPostFixSingleList(vista.infixInput());
 			System.out.println(postfix);
 			break;
 		case 3:
