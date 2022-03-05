@@ -5,10 +5,13 @@ public class Controller {
 	String infix; 
 	String postfix = "";
 	StackVector<Token> vector = new StackVector<Token>();
+	StackNodes<Token> miNode = new StackNodes<Token>();
 	
 	public void run() {
 		switch(vista.mainMenu()) {
 		case 1:
+			toPostFixNodes(vista.infixInput());
+			System.out.println(postfix);
 			break;
 		case 2:
 			break;
@@ -151,5 +154,63 @@ public void StackArrayListT<T> implements IStack<T> {
 
 }
 //-------------------------------------MANUELIN-------------------------------------
+
+public void toPostFixNodes(String infix) {
+	for(int i = 0; i< infix.length(); i++) {
+		char ch = infix.charAt(i);
+		
+		try {
+			Token token = new Token(ch);
+			
+			//Si la lista esta vacia deja pasar cualquier token sin importar su precedencia
+			if(miNode.isEmpty()) {
+				miNode.push(token);
+				postfix += ' ';
+			
+			}else {
+				if(token.compareTo(miNode.peek()) <= 0 ){
+					//TODO la precedencia del que esta antes es menor
+					if((token.getToken() != ')')&&(token.getToken() != '(') ){
+						postfix += token.getToken();
+					}
+				}else {
+					//Si el que esta antes en el stack es de mayor precedencia
+					greaterPrecedenceNode(miNode, token);
+				}
+			}
+			
+		}catch(NotATokenException e) {
+			postfix += ch;
+				
+		}						 
+	}
+	emptyStack(vector);
+}
+
+
+public void greaterPrecedenceNode(StackNodes<Token> miNode, Token token) {
+	//vector.pull();
+	while((miNode.peek().getToken() != '(') || (token.compareTo(miNode.peek()) >= 0)) {
+		if (miNode.peek().getToken() != '(') {
+			postfix += miNode.pull().getToken();
+		}else {
+			miNode.pull();
+		}
+	}
+}
+
+
+public void emptyStackNode(StackNodes<Token> miNode) {
+	if(miNode.isEmpty() == false) {
+		postfix += miNode.pull().getToken();
+	}
+}
+
+
+
+
+
+
+
 
 }
