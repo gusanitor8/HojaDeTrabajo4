@@ -125,8 +125,8 @@ public void StackArrayListT<T> implements IStack<T> {
 	}
 	
 	@Override
-	public void push(T value) {		
-		coreListT.startt(0, value);
+	public void push(T valuet) {		
+		coreListT.startt(0, valuet);
 	}
 
 	@Override
