@@ -2,7 +2,7 @@ public class DoubleLinkedList<T> implements IList<T>
 
 	private DoubleNode<T> startt;
 	private DoubleNode<T> endt;
-	private int count;
+	private int countt;
 	
 	public DoubleLinkedList() {
 		startt = null;
@@ -29,7 +29,7 @@ public class DoubleLinkedList<T> implements IList<T>
 			startt = newNode;
 		}
 		
-		count++;
+		countt++;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class DoubleLinkedList<T> implements IList<T>
         }
         else 
         {
-            if (index >= Count()) //if the index is equal or greater than count then insert at end
+            if (index >= countt()) //if the index is equal or greater than count then insert at end
             {
                 InsertAtendt(valuet);
             } 
@@ -73,7 +73,7 @@ public class DoubleLinkedList<T> implements IList<T>
             {
                 InsertAtstartt(valuet);
             }
-            else if ((index > 0) && (index < Count())) //Index between 1 (second element) and Count() - 1 previous the last one
+            else if ((index > 0) && (index < countt())) //Index between 1 (second element) and Count() - 1 previous the last one
             {
                 DoubleNode<T> newNode = new DoubleNode<T>(valuet);
                 DoubleNode<T> tempt = startt;
@@ -90,7 +90,7 @@ public class DoubleLinkedList<T> implements IList<T>
                 newNode.setPrevious(tempt.getPrevious());
                 tempt.setPrevious(newNode);
                 newNode.getPrevious().setNext(newNode);
-                count++;
+                countt++;
             }
         }
 		
@@ -106,18 +106,18 @@ public class DoubleLinkedList<T> implements IList<T>
 	public T DeleteAtstartt() {
 		if (!IsEmptyT()) {
 			
-			if (Count() == 1) {
+			if (countt() == 1) {
 				DoubleNode<T> tempt = startt;
 				startt = null;
 				endt = null;
-				count--;
+				countt--;
 				return tempt.getValuet();
 			} else {
 				DoubleNode<T> tempt = startt;
 				endt.setNext(tempt.getNext());
 				tempt.getNext().setPrevious(endt);
 				startt = tempt.getNext();
-				count--;
+				countt--;
 				return tempt.getValuet();
 			}
 			
@@ -142,11 +142,11 @@ public class DoubleLinkedList<T> implements IList<T>
             {
                 return startt.getValuet();
             }
-            else if (index == (Count() - 1))
+            else if (index == (countt() - 1))
             {
                 return endt.getValuet();
             }
-            else if ((index > 0) && (index < (Count() - 1)))
+            else if ((index > 0) && (index < (countt() - 1)))
             {
                 DoubleNode<T> tempt = startt;
                 int i = 0;
@@ -177,12 +177,12 @@ public class DoubleLinkedList<T> implements IList<T>
 
 	@Override
 	public boolean IsEmptyT() {
-		return count == 0;
+		return countt == 0;
 	}
 
 	@Override
-	public int Count() {
-		return count;
+	public int countt() {
+		return countt;
 	}
 
 	
