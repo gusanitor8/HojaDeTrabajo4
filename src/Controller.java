@@ -84,75 +84,100 @@ public class Controller {
 	
 //-------------------------------------DIEGUIN-------------------------------------
 //Single List
-public void StackArrayList<T> implements IStack<T> {
-
-	private ArrayList<T> coreList;
-	
-	public StackArrayList() {
-		coreList = new ArrayList<T>();
+	public void toPostFixList1(String infix) {
+		for(int i = 0; i< infix.length(); i++) {
+			char ch = infix.charAt(i);
+			
+			try {
+				Token token = new Token(ch);
+				
+				//Si la lista esta vacia deja pasar cualquier token sin importar su precedencia
+				if(list2.isEmpty()) {
+					list2.push(token);
+					postfix += ' ';
+				
+				}else {
+					if(token.compareTo(list2.peek()) <= 0 ){
+						//TODO la precedencia del que esta antes es menor
+						if((token.getToken() != ')')&&(token.getToken() != '(') ){
+							postfix += token.getToken();
+						}
+					}else {
+						//Si el que esta antes en el stack es de mayor precedencia
+						greaterPrecedence(list2, token);
+					}
+				}
+				
+			}catch(NotATokenException e) {
+				postfix += ch;
+					
+			}						 
+		}
+		emptyStack(list2);
 	}
 	
-	@Override
-	public void push(T value) {		
-		coreList.start(0, value);
-	}
-
-	@Override
-	public T pull() {
-		return coreList.end(0);
-	}
-
-	@Override
-	public T peek() {
-		return coreList.temp (0);
-	}
-
-	@Override
-	public int Count() {
-		return coreList.value();
-	}
-
-	@Override
-	public boolean isEmpty() {		
-		return coreList.isEmpty();
-	}
-
-}	
-//DoubleList
-public void StackArrayListT<T> implements IStack<T> {
-
-	private ArrayListT<T> coreListT;
 	
-	public StackArrayListT() {
-		coreListT = new ArrayListT<T>();
+	public void greaterPrecedence(StackVector<Token> list2, Token token) {
+		//vector.pull();
+		while((list2.peek().getToken() != '(') || (token.compareTo(list2.peek()) >= 0)) {
+			if (list2.peek().getToken() != '(') {
+				postfix += list2.pull().getToken();
+			}else {
+				list2.pull();
+			}
+		}
 	}
 	
-	@Override
-	public void push(T valuet) {		
-		coreListT.startt(0, valuet);
+	
+	public void emptyStack(StackVector<Token> vector) {
+		if(vector.isEmpty() == false) {
+			postfix += vector.pull().getToken();
+		}
 	}
-
-	@Override
-	public T pull() {
-		return coreListT.endt(0);
+//Second List
+	public void toPostFixList2(String infix) {
+		for(int i = 0; i< infix.length(); i++) {
+			char ch = infix.charAt(i);
+			
+			try {
+				Token token = new Token(ch);
+				
+				//Si la lista esta vacia deja pasar cualquier token sin importar su precedencia
+				if(vector.isEmpty()) {
+					vector.push(token);
+					postfix += ' ';
+				
+				}else {
+					if(token.compareTo(vector.peek()) <= 0 ){
+						//TODO la precedencia del que esta antes es menor
+						if((token.getToken() != ')')&&(token.getToken() != '(') ){
+							postfix += token.getToken();
+						}
+					}else {
+						//Si el que esta antes en el stack es de mayor precedencia
+						greaterPrecedence(vector, token);
+					}
+				}
+				
+			}catch(NotATokenException e) {
+				postfix += ch;
+					
+			}						 
+		}
+		emptyStack(vector);
 	}
-
-	@Override
-	public T peek() {
-		return coreListT.tempt (0);
+	
+	
+	public void greaterPrecedence(StackVector<Token> vector, Token token) {
+		//vector.pull();
+		while((vector.peek().getToken() != '(') || (token.compareTo(vector.peek()) >= 0)) {
+			if (vector.peek().getToken() != '(') {
+				postfix += vector.pull().getToken();
+			}else {
+				vector.pull();
+			}
+		}
 	}
-
-	@Override
-	public int Count() {
-		return coreListT.valuet();
-	}
-
-	@Override
-	public boolean isEmpty() {		
-		return coreListT.isEmptyT();
-	}
-
-}
 //-------------------------------------MANUELIN-------------------------------------
 
 public void toPostFixNodes(String infix) {
