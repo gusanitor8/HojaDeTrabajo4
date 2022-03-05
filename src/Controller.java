@@ -80,6 +80,7 @@ public class Controller {
 	}
 	
 //-------------------------------------DIEGUIN-------------------------------------
+//Single List
 public class StackArrayList<T> implements IStack<T> {
 
 	private ArrayList<T> coreList;
