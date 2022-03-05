@@ -84,7 +84,59 @@ public class Controller {
 	
 //-------------------------------------DIEGUIN-------------------------------------
 //Single List
-	public void toPostFixList1(String infix) {
+	public void toPostFixList(String infix) {
+		for(int i = 0; i< infix.length(); i++) {
+			char ch = infix.charAt(i);
+			
+			try {
+				Token token = new Token(ch);
+				
+				//Si la lista esta vacia deja pasar cualquier token sin importar su precedencia
+				if(list.isEmpty()) {
+					list.push(token);
+					postfix += ' ';
+				
+				}else {
+					if(token.compareTo(list.peek()) <= 0 ){
+						//TODO la precedencia del que esta antes es menor
+						if((token.getToken() != ')')&&(token.getToken() != '(') ){
+							postfix += token.getToken();
+						}
+					}else {
+						//Si el que esta antes en el stack es de mayor precedencia
+						greaterPrecedence(list, token);
+					}
+				}
+				
+			}catch(NotATokenException e) {
+				postfix += ch;
+					
+			}						 
+		}
+		emptyStack(list);
+	}
+	
+	
+	public void greaterPrecedence(StackList<Token> list, Token token) {
+		//list.pull();
+		while((list.peek().getToken() != '(') || (token.compareTo(list.peek()) >= 0)) {
+			if (list.peek().getToken() != '(') {
+				postfix += list.pull().getToken();
+			}else {
+				list.pull();
+			}
+		}
+	}
+	
+	
+	public void emptyStack(StackList<Token> list) {
+		if(list.isEmpty() == false) {
+			postfix += list.pull().getToken();
+		}
+	}
+	
+//Double List
+	public void toPostFixList2(String infix) {
 		for(int i = 0; i< infix.length(); i++) {
 			char ch = infix.charAt(i);
 			
@@ -117,8 +169,8 @@ public class Controller {
 	}
 	
 	
-	public void greaterPrecedence(StackVector<Token> list2, Token token) {
-		//vector.pull();
+	public void greaterPrecedence(StackList2<Token> list2, Token token) {
+		//list2.pull();
 		while((list2.peek().getToken() != '(') || (token.compareTo(list2.peek()) >= 0)) {
 			if (list2.peek().getToken() != '(') {
 				postfix += list2.pull().getToken();
@@ -129,53 +181,9 @@ public class Controller {
 	}
 	
 	
-	public void emptyStack(StackVector<Token> vector) {
-		if(vector.isEmpty() == false) {
-			postfix += vector.pull().getToken();
-		}
-	}
-//Second List
-	public void toPostFixList2(String infix) {
-		for(int i = 0; i< infix.length(); i++) {
-			char ch = infix.charAt(i);
-			
-			try {
-				Token token = new Token(ch);
-				
-				//Si la lista esta vacia deja pasar cualquier token sin importar su precedencia
-				if(vector.isEmpty()) {
-					vector.push(token);
-					postfix += ' ';
-				
-				}else {
-					if(token.compareTo(vector.peek()) <= 0 ){
-						//TODO la precedencia del que esta antes es menor
-						if((token.getToken() != ')')&&(token.getToken() != '(') ){
-							postfix += token.getToken();
-						}
-					}else {
-						//Si el que esta antes en el stack es de mayor precedencia
-						greaterPrecedence(vector, token);
-					}
-				}
-				
-			}catch(NotATokenException e) {
-				postfix += ch;
-					
-			}						 
-		}
-		emptyStack(vector);
-	}
-	
-	
-	public void greaterPrecedence(StackVector<Token> vector, Token token) {
-		//vector.pull();
-		while((vector.peek().getToken() != '(') || (token.compareTo(vector.peek()) >= 0)) {
-			if (vector.peek().getToken() != '(') {
-				postfix += vector.pull().getToken();
-			}else {
-				vector.pull();
-			}
+	public void emptyStack(StackList2<Token> list2) {
+		if(list2.isEmpty() == false) {
+			postfix += list2.pull().getToken();
 		}
 	}
 //-------------------------------------MANUELIN-------------------------------------
