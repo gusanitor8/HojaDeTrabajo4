@@ -15,6 +15,8 @@ public class Controller {
 		case 3:
 			break;
 		case 4:
+			toPostFixVector(vista.infixInput());
+			System.out.println(postfix);
 			break;
 		case 5:
 			System.exit(0);
@@ -32,21 +34,50 @@ public class Controller {
 			
 			try {
 				Token token = new Token(ch);
-				vector.push(token);
-				postfix += ' ';
+				
+				//Si la lista esta vacia deja pasar cualquier token sin importar su precedencia
+				if(vector.isEmpty()) {
+					vector.push(token);
+					postfix += ' ';
+				
+				}else {
+					if(token.compareTo(vector.peek()) <= 0 ){
+						//TODO la precedencia del que esta antes es menor
+						if((token.getToken() != ')')&&(token.getToken() != '(') ){
+							postfix += token.getToken();
+						}
+					}else {
+						//Si el que esta antes en el stack es de mayor precedencia
+						greaterPrecedence(vector, token);
+					}
+				}
 				
 			}catch(NotATokenException e) {
-				if ((ch == ')') ||(ch == '(')) {
-					//TODO si los caracteres son parentesis
-				}else {
-					postfix += ch;
+				postfix += ch;
 					
-				}
+			}						 
+		}
+		emptyStack(vector);
+	}
+	
+	
+	public void greaterPrecedence(StackVector<Token> vector, Token token) {
+		//vector.pull();
+		while((vector.peek().getToken() != '(') || (token.compareTo(vector.peek()) >= 0)) {
+			if (vector.peek().getToken() != '(') {
+				postfix += vector.pull().getToken();
+			}else {
+				vector.pull();
 			}
-			
 		}
 	}
 	
+	
+	public void emptyStack(StackVector<Token> vector) {
+		if(vector.isEmpty() == false) {
+			postfix += vector.pull().getToken();
+		}
+	}
 	
 //-------------------------------------DIEGUIN-------------------------------------
 	

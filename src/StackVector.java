@@ -2,7 +2,7 @@ import java.util.Vector;
 
 public class StackVector<T> implements IStack<T> {
 	
-	private Vector<T> vector;
+	private Vector<T> vector = new Vector<T>() ;
 
 	@Override
 	public void push(T value) {

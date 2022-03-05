@@ -61,6 +61,7 @@ public class Vista {
 	 * @return
 	 */
 	public String infixInput() {
+		prnt("Ingrese la expresion en Infix: ");
 		String infix = input.nextLine();
 		return infix;
 	}
