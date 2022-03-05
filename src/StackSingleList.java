@@ -1,35 +1,33 @@
-//DoubleList
-public void StackArrayListT<T> implements IStack<T> {
 
-	private ArrayListT<T> coreListT;
-	
-	public StackArrayListT() {
-		coreListT = new ArrayListT<T>();
-	}
+
+//DoubleList
+public class StackSingleList<T> implements IStack<T> {
+
+	private SingleList<T> single = new SingleList<T>();
 	
 	@Override
 	public void push(T valuet) {		
-		coreListT.startt(0, valuet);
+		single.InsertAtStart(valuet);
 	}
 
 	@Override
 	public T pull() {
-		return coreListT.endt(0);
+		return single.DeleteAtStart();
 	}
 
 	@Override
 	public T peek() {
-		return coreListT.tempt (0);
+		return single.Get(0);
 	}
 
 	@Override
-	public int Count() {
-		return coreListT.valuet();
+	public int count() {
+		return single.Count();
 	}
 
 	@Override
 	public boolean isEmpty() {		
-		return coreListT.isEmptyT();
+		return single.IsEmpty();
 	}
 
 }

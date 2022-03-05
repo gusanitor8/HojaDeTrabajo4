@@ -1,34 +1,30 @@
-public void StackArrayList<T> implements IStack<T> {
+public class StackDoubleList<T> implements IStack<T> {
 
-	private ArrayList<T> coreList;
-	
-	public StackArrayList() {
-		coreList = new ArrayList<T>();
-	}
+	private DoubleLinkedList<T> doub = new DoubleLinkedList<T>();
 	
 	@Override
-	public void push(T value) {		
-		coreList.start(0, value);
+	public void push(T valuet) {		
+		doub.InsertAtStart(valuet);
 	}
 
 	@Override
 	public T pull() {
-		return coreList.end(0);
+		return doub.DeleteAtStart();
 	}
 
 	@Override
 	public T peek() {
-		return coreList.temp (0);
+		return doub.Get(0);
 	}
 
 	@Override
-	public int Count() {
-		return coreList.value();
+	public int count() {
+		return doub.Count();
 	}
 
 	@Override
 	public boolean isEmpty() {		
-		return coreList.isEmpty();
+		return doub.IsEmpty();
 	}
 
 }	

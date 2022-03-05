@@ -6,6 +6,8 @@ public class Controller {
 	String postfix = "";
 	StackVector<Token> vector = new StackVector<Token>();
 	StackNodes<Token> miNode = new StackNodes<Token>();
+	StackDoubleList<Token> list2 = new StackDoubleList<Token>();
+	StackSingleList<Token> list = new StackSingleList<Token>(); 
 	
 	public void run() {
 		switch(vista.mainMenu()) {
@@ -14,11 +16,13 @@ public class Controller {
 			System.out.println(postfix);
 			break;
 		case 2:
+			toPostFixSingleList(vista.infixInput());
+			System.out.println(postfix);
 			break;
 		case 3:
 			break;
 		case 4:
-			toPostFixVector(vista.infixInput());
+			toPostFixDoubleList(vista.infixInput());
 			System.out.println(postfix);
 			break;
 		case 5:
@@ -84,7 +88,7 @@ public class Controller {
 	
 //-------------------------------------DIEGUIN-------------------------------------
 //Single List
-	public void toPostFixList(String infix) {
+	public void toPostFixSingleList(String infix) {
 		for(int i = 0; i< infix.length(); i++) {
 			char ch = infix.charAt(i);
 			
@@ -104,7 +108,7 @@ public class Controller {
 						}
 					}else {
 						//Si el que esta antes en el stack es de mayor precedencia
-						greaterPrecedence(list, token);
+						greaterPrecedenceSingle(list, token);
 					}
 				}
 				
@@ -113,11 +117,11 @@ public class Controller {
 					
 			}						 
 		}
-		emptyStack(list);
+		emptyStackSingle(list);
 	}
 	
 	
-	public void greaterPrecedence(StackList<Token> list, Token token) {
+	public void greaterPrecedenceSingle(StackSingleList<Token> list, Token token) {
 		//list.pull();
 		while((list.peek().getToken() != '(') || (token.compareTo(list.peek()) >= 0)) {
 			if (list.peek().getToken() != '(') {
@@ -129,14 +133,14 @@ public class Controller {
 	}
 	
 	
-	public void emptyStack(StackList<Token> list) {
+	public void emptyStackSingle(StackSingleList<Token> list) {
 		if(list.isEmpty() == false) {
 			postfix += list.pull().getToken();
 		}
 	}
 	
 //Double List
-	public void toPostFixList2(String infix) {
+	public void toPostFixDoubleList(String infix) {
 		for(int i = 0; i< infix.length(); i++) {
 			char ch = infix.charAt(i);
 			
@@ -156,7 +160,7 @@ public class Controller {
 						}
 					}else {
 						//Si el que esta antes en el stack es de mayor precedencia
-						greaterPrecedence(list2, token);
+						greaterPrecedenceDouble(list2, token);
 					}
 				}
 				
@@ -165,11 +169,11 @@ public class Controller {
 					
 			}						 
 		}
-		emptyStack(list2);
+		emptyStackDouble(list2);
 	}
 	
 	
-	public void greaterPrecedence(StackList2<Token> list2, Token token) {
+	public void greaterPrecedenceDouble(StackDoubleList<Token> list2, Token token) {
 		//list2.pull();
 		while((list2.peek().getToken() != '(') || (token.compareTo(list2.peek()) >= 0)) {
 			if (list2.peek().getToken() != '(') {
@@ -181,7 +185,7 @@ public class Controller {
 	}
 	
 	
-	public void emptyStack(StackList2<Token> list2) {
+	public void emptyStackDouble(StackDoubleList<Token> list2) {
 		if(list2.isEmpty() == false) {
 			postfix += list2.pull().getToken();
 		}
@@ -217,7 +221,7 @@ public void toPostFixNodes(String infix) {
 				
 		}						 
 	}
-	emptyStack(vector);
+	emptyStackNode(miNode);
 }
 
 
